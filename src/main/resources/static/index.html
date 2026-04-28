@@ -65,6 +65,12 @@
             width: auto;
             padding: 5px 10px;
         }
+        .ai-btn {
+        background-color: #2196F3;
+        width: auto;
+        padding: 5px 10px;
+        margin-left: 5px;
+        }
     </style>
 </head>
 <body>
@@ -112,7 +118,7 @@
                                 <td>${job.jobTitle}</td>
                                 <td>${job.appliedDate}</td>
                                 <td>${job.status}</td>
-                                <td><button class="delete-btn" onclick="deleteJob(${job.id})">Delete</button></td>
+                                <td><button class="delete-btn" onclick="deleteJob(${job.id})">Delete</button><button class="ai-btn" onclick="getAiTip(${job.id})">Get AI Tip</button></td>
                             </tr>`;
                     });
                 });
@@ -140,7 +146,11 @@
             fetch(`/jobs/${id}`, { method: 'DELETE' })
                 .then(() => loadJobs());
         }
-
+        function getAiTip(id) {
+        fetch(`/jobs/${id}/ai-tip`)
+        .then(res => res.text())
+        .then(tip => alert("💡 AI Tip:\n\n" + tip));
+        }
         loadJobs();
     </script>
 </body>

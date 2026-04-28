@@ -33,7 +33,7 @@ public class JobController {
         jobRepository.deleteById(id);
     }
 
-    @GetMapping("/ai-tip/{id}")
+    @GetMapping("/{id}/ai-tip")
     public String getAiTip(@PathVariable Long id) {
         Job job = jobRepository.findById(id).orElse(null);
         if (job == null) return "Job not found";
@@ -43,7 +43,7 @@ public class JobController {
                         ". Current status is " + job.getStatus() +
                         ". Give me one short practical tip to improve my chances.";
 
-        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=" + geminiApiKey;
+        String url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=" + geminiApiKey;
 
         RestTemplate restTemplate = new RestTemplate();
         HttpHeaders headers = new HttpHeaders();
